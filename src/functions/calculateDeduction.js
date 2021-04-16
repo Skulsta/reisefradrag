@@ -26,8 +26,9 @@ const calculateDeduction = () => {
       }
 
       this.travelDeduction = data.reisefradrag;
-      console.log("Result should appear here");
-      console.log(this.travelDeduction);
+      return this.travelDeduction;
+      //   console.log("Result should appear here");
+      //   console.log(this.travelDeduction);
     })
     .catch((error) => {
       this.errorMessage = error;
