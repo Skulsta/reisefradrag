@@ -10,9 +10,9 @@ import { ref, onMounted } from "vue";
 export default {
   setup() {
     let travelDeduction = ref("");
+
     onMounted(() => {
-      travelDeduction.value = calculateDeduction();
-      if (travelDeduction.value) console.log(travelDeduction);
+      calculateDeduction();
     });
 
     const calculateDeduction = () => {
@@ -43,7 +43,6 @@ export default {
           }
 
           travelDeduction.value = data.reisefradrag;
-          return travelDeduction.value;
         })
         .catch((error) => {
           console.error("There was an error!", error);
