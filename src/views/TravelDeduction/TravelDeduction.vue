@@ -1,15 +1,18 @@
 <template>
   <div>
     <h1>Reisefradrag</h1>
+
+    <p v-if="travelDeduction">Here you go: {{ travelDeduction }}</p>
   </div>
 </template>
 <script>
-import { onMounted } from "vue";
+import { ref, onMounted } from "vue";
 export default {
   setup() {
+    let travelDeduction = ref("");
     onMounted(() => {
-      const travelDeduction = calculateDeduction();
-      if (travelDeduction) console.log(travelDeduction);
+      travelDeduction.value = calculateDeduction();
+      if (travelDeduction.value) console.log(travelDeduction);
     });
 
     const calculateDeduction = () => {
@@ -39,14 +42,14 @@ export default {
             return Promise.reject(error);
           }
 
-          const travelDeduction = data.reisefradrag;
-          //   console.log("Result should appear here");
-          console.log(travelDeduction);
+          travelDeduction.value = data.reisefradrag;
+          return travelDeduction.value;
         })
         .catch((error) => {
           console.error("There was an error!", error);
         });
     };
+    return { travelDeduction };
   },
 };
 </script>
