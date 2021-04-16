@@ -1,20 +1,22 @@
 <template>
-  <div>
-    <h1>Reisefradrag</h1>
+  <div className="max-w-screen-2xl p-8">
+    <div class="flex flex-col items-center space-y-4">
+      <h1 class="text-2xl">Reisefradrag</h1>
 
-    <p v-if="travelDeduction">Here you go: {{ travelDeduction }}</p>
+      <p v-if="travelDeduction">Here you go: {{ travelDeduction }}</p>
+      <form action="submit" @submit.prevent="showData">
+        <travel-inputs />
+      </form>
+    </div>
   </div>
 </template>
 <script>
-import { ref, onMounted } from "vue";
+import { ref } from "vue";
+import TravelInputs from "./TravelInputs.vue";
 export default {
+  components: { TravelInputs },
   setup() {
     let travelDeduction = ref("");
-
-    onMounted(() => {
-      calculateDeduction();
-    });
-
     const calculateDeduction = () => {
       const requestOptions = {
         method: "POST",
@@ -35,9 +37,7 @@ export default {
         .then(async (response) => {
           const data = await response.json();
 
-          // check for error response
           if (!response.ok) {
-            // get error message from body or default to response status
             const error = (data && data.message) || response.status;
             return Promise.reject(error);
           }
@@ -45,9 +45,14 @@ export default {
           travelDeduction.value = data.reisefradrag;
         })
         .catch((error) => {
+          // Display error message to the user if this happens
           console.error("There was an error!", error);
         });
     };
+
+    // call on submit with values
+    travelDeduction.value = calculateDeduction();
+
     return { travelDeduction };
   },
 };
