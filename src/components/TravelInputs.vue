@@ -34,25 +34,23 @@
   </div>
 </template>
 <script>
-import { ref } from "vue";
-// import InputField from "../../components/InputField.vue";
+import { defineComponent, ref, toRaw } from "vue";
 
-export default {
-  //   components: { InputField },
+export default defineComponent({
   setup() {
-    const variations = ref([{ km: "", times: "" }]);
+    const variations = ref([{ km: "", antall: "" }]);
 
-    const updateArray = (value, counter) => {
+    const updateArray = function(value, counter) {
       value.target.name.match("km")
-        ? (variations.value[counter].km = value.target.value)
-        : (variations.value[counter].times = value.target.value);
-      console.log(variations.value);
+        ? (variations.value[counter].km = parseInt(value.target.value))
+        : (variations.value[counter].antall = parseInt(value.target.value));
+      this.$emit("toParent", toRaw(variations.value));
     };
 
     const addVariation = () => {
       variations.value.push({
         km: "",
-        times: "", // TODO Fetch the main price to make it more conventient to enter variations that doesn't impact the price
+        antall: "", // TODO Fetch the main price to make it more conventient to enter variations that doesn't impact the price
       });
     };
 
@@ -67,5 +65,5 @@ export default {
       updateArray,
     };
   },
-};
+});
 </script>
