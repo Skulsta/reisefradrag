@@ -5,14 +5,16 @@
       :key="counter"
       class="variations grid grid-cols-2 mb-8 space-x-4"
     >
-      <input
-        class="border"
+      <input-field
+        v-model="event.workTravelsKm"
+        label="Arbeidsreiser"
         type="number"
         :name="`variations[${counter}].km`"
         placeholder="35"
       />
-      <input
-        class="border"
+      <input-field
+        v-model="event.workTravelTimes"
+        label="Besøksreiser"
         :name="`variations[${counter}].times`"
         type="number"
         placeholder="5"
@@ -34,16 +36,25 @@
 </template>
 <script>
 import { ref } from "vue";
+import InputField from "../../components/InputField.vue";
 
 export default {
+  components: { InputField },
   setup() {
-    const variations = ref(new Array());
+    const variations = ref([{ km: 91, antall: 180 }]);
+
+    const event = {
+      workTravelsKm: "",
+      workTravelTimes: "",
+    };
 
     const addVariation = () => {
       variations.value.push({
-        km: "",
-        times: 0, // TODO Fetch the main price to make it more conventient to enter variations that doesn't impact the price
+        km: event.workTravelsKm,
+        times: event.workTravelTimes, // TODO Fetch the main price to make it more conventient to enter variations that doesn't impact the price
       });
+      console.log(variations.value);
+      console.log(event);
     };
 
     const removeVariation = (counter) => {
@@ -54,6 +65,7 @@ export default {
       variations,
       addVariation,
       removeVariation,
+      event,
     };
   },
 };

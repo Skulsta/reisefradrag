@@ -4,8 +4,10 @@
       <h1 class="text-2xl">Reisefradrag</h1>
 
       <p v-if="travelDeduction">Here you go: {{ travelDeduction }}</p>
-      <form action="submit" @submit.prevent="showData">
+      <form action="submit" @submit.prevent="(e) => submit(e.target)">
         <travel-inputs />
+        <input name="test" value="content" class="border" />
+        <button>Submit</button>
       </form>
     </div>
   </div>
@@ -17,6 +19,16 @@ export default {
   components: { TravelInputs },
   setup() {
     let travelDeduction = ref("");
+
+    const submit = (values) => {
+      const request = {
+        // access content from child
+        variations: values,
+        test: values.test.value,
+      };
+      console.log(values.test.value, request);
+    };
+
     const calculateDeduction = () => {
       const requestOptions = {
         method: "POST",
@@ -53,7 +65,7 @@ export default {
     // call on submit with values
     travelDeduction.value = calculateDeduction();
 
-    return { travelDeduction };
+    return { travelDeduction, submit };
   },
 };
 </script>
