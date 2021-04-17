@@ -5,15 +5,45 @@
       <p v-if="travelDeduction">Here you go: {{ travelDeduction }}</p>
 
       <form action="submit" @submit.prevent="(e) => submit(e)">
+        <label>Arbeidsreiser</label>
         <div class="grid grid-cols-2 mb-8 space-x-4">
-          <input v-model="workKm" name="km" type="number" />
           <input
+            class="border"
+            label="km"
+            v-model="workKm"
+            name="km"
+            type="number"
+            placeholder="200"
+          />
+          <input
+            class="border"
+            label="Antall"
             v-model="workTimes"
             name="times"
             type="number"
             placeholder="5"
           />
         </div>
+        <label>Besøksreiser</label>
+        <div class="grid grid-cols-2 mb-8 space-x-4">
+          <input
+            class="border"
+            label="km"
+            v-model="visitKm"
+            name="km"
+            type="number"
+            placeholder="200"
+          />
+          <input
+            class="border"
+            label="Antall"
+            v-model="visitTimes"
+            name="times"
+            type="number"
+            placeholder="5"
+          />
+        </div>
+        <!-- <travel-inputs /> -->
         <button>Submit</button>
       </form>
     </div>
@@ -21,22 +51,34 @@
 </template>
 <script>
 import { ref } from "vue";
+// import InputField from "../../components/InputField.vue";
+// import TravelInputs from "./TravelInputs.vue";
 export default {
+  components: {
+    // TravelInputs,
+    // InputField,
+  },
   setup() {
     let travelDeduction = ref("");
-    let workKm = ref(102);
-    let workTimes = ref(180);
+    let workKm = ref();
+    let workTimes = ref();
+    let visitKm = ref();
+    let visitTimes = ref();
     let request;
 
+    const getTravelInputs = () => {};
+
     const submit = () => {
+      getTravelInputs();
       request = {
         arbeidsreiser: [
-          { km: parseInt(workKm.value), antall: workTimes.value },
+          { km: parseInt(workKm.value) || 0, antall: workTimes.value || 0 },
         ],
-        besoeksreiser: [{ km: 580, antall: 4 }],
+        besoeksreiser: [
+          { km: visitKm.value || 0, antall: visitTimes.value || 0 },
+        ],
         utgifterBomFergeEtc: 4850,
       };
-      console.log(request);
       travelDeduction.value = calculateDeduction();
     };
 
@@ -69,7 +111,16 @@ export default {
     // call on submit with values
     // calculateDeduction();
 
-    return { travelDeduction, submit, workKm, workTimes };
+    return {
+      travelDeduction,
+      submit,
+      workKm,
+      workTimes,
+      visitKm,
+      visitTimes,
+      //   TravelInputs,
+      //   InputField,
+    };
   },
 };
 </script>

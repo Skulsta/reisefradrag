@@ -46,7 +46,6 @@ export default {
         km: "",
         times: "", // TODO Fetch the main price to make it more conventient to enter variations that doesn't impact the price
       });
-      console.log(variations.value);
     };
 
     const removeVariation = (counter) => {
