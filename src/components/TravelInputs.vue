@@ -59,6 +59,7 @@ export default defineComponent({
     };
 
     const removeVariation = (counter) => {
+      // TODO This should update some value to resolve a bug
       variations.value.splice(counter, 1);
     };
 

@@ -4,8 +4,9 @@
       <h1 class="text-2xl">Reisefradrag</h1>
       <p v-if="travelDeduction">Here you go: {{ travelDeduction }}</p>
 
-      <form action="submit" @submit.prevent="(e) => submit(e)">
+      <form action="submit" @submit.prevent="submit">
         <travel-inputs sectionLabel="Arbeidsreiser" @toParent="handler" />
+        <travel-inputs sectionLabel="Besøksreiser" @toParent="handleAnother" />
         <button>Submit</button>
       </form>
     </div>
@@ -28,17 +29,20 @@ export default {
     let visitKm = ref();
     let visitTimes = ref();
     let request;
+    let visitTravels;
 
     const handler = (value) => {
       workTravels = value;
     };
 
+    const handleAnother = (value) => {
+      visitTravels = value;
+    };
+
     const submit = () => {
       request = {
-        arbeidsreiser: workTravels,
-        besoeksreiser: [
-          { km: visitKm.value || 0, antall: visitTimes.value || 0 },
-        ],
+        arbeidsreiser: workTravels ? workTravels : [{ km: 0, antall: 0 }],
+        besoeksreiser: visitTravels ? visitTravels : [{ km: 0, antall: 0 }],
         utgifterBomFergeEtc: 4850,
       };
       travelDeduction.value = calculateDeduction();
@@ -79,6 +83,8 @@ export default {
       TravelInputs,
       workTravels,
       handler,
+      visitTravels,
+      handleAnother,
     };
   },
 };
