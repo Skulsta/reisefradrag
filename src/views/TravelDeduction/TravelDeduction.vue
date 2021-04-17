@@ -7,6 +7,7 @@
       <form action="submit" @submit.prevent="submit">
         <travel-inputs sectionLabel="Arbeidsreiser" @toParent="handler" />
         <travel-inputs sectionLabel="Besøksreiser" @toParent="handleAnother" />
+        <input type="number" v-model="expenses" class="border" />
         <button>Submit</button>
       </form>
     </div>
@@ -30,6 +31,7 @@ export default {
     let visitTimes = ref();
     let request;
     let visitTravels;
+    let expenses = ref("");
 
     const handler = (value) => {
       workTravels = value;
@@ -43,7 +45,7 @@ export default {
       request = {
         arbeidsreiser: workTravels ? workTravels : [{ km: 0, antall: 0 }],
         besoeksreiser: visitTravels ? visitTravels : [{ km: 0, antall: 0 }],
-        utgifterBomFergeEtc: 4850,
+        utgifterBomFergeEtc: parseInt(expenses.value),
       };
       travelDeduction.value = calculateDeduction();
     };
@@ -85,6 +87,7 @@ export default {
       handler,
       visitTravels,
       handleAnother,
+      expenses,
     };
   },
 };
