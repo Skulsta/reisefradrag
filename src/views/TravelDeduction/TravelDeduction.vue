@@ -5,7 +5,7 @@
       <p v-if="travelDeduction">Here you go: {{ travelDeduction }}</p>
 
       <form action="submit" @submit.prevent="(e) => submit(e)">
-        <travel-inputs @toParent="handler" />
+        <travel-inputs sectionLabel="Arbeidsreiser" @toParent="handler" />
         <button>Submit</button>
       </form>
     </div>

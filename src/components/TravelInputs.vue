@@ -1,5 +1,6 @@
 <template>
   <div>
+    <label>{{ sectionLabel }}</label>
     <div
       v-for="(variation, counter) in variations"
       :key="counter"
@@ -24,7 +25,7 @@
         Legg til flere
       </div>
       <div
-        v-show="variations.length"
+        v-show="variations.length > 1"
         class="text-red-600 cursor-pointer opacity-75"
         @click="removeVariation"
       >
@@ -37,6 +38,9 @@
 import { defineComponent, ref, toRaw } from "vue";
 
 export default defineComponent({
+  props: {
+    sectionLabel: { type: String, default: "" },
+  },
   setup() {
     const variations = ref([{ km: "", antall: "" }]);
 
@@ -50,7 +54,7 @@ export default defineComponent({
     const addVariation = () => {
       variations.value.push({
         km: "",
-        antall: "", // TODO Fetch the main price to make it more conventient to enter variations that doesn't impact the price
+        antall: "",
       });
     };
 
