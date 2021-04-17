@@ -43,15 +43,9 @@ export default {
     const variations = ref([{ km: "", times: "" }]);
 
     const updateArray = (value, counter) => {
-      //   console.log(value.target.value);
-      //   console.log("counter is: " + counter);
-      //   console.log(variations.value[0][0]);
-      //   console.log(variations.value[0]);
-      //   variations.value[counter].km = value.target.value;
       value.target.name.match("km")
         ? (variations.value[counter].km = value.target.value)
         : (variations.value[counter].times = value.target.value);
-      //   variations.value[counter].times = value.target.name;
       console.log(variations.value);
     };
 

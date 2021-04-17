@@ -44,7 +44,13 @@
           />
         </div>
         <p>Travel inputs component below</p>
-        <travel-inputs />
+        <travel-inputs
+          @updateArray="
+            {
+              updateArray();
+            }
+          "
+        />
         <button>Submit</button>
       </form>
     </div>
@@ -61,11 +67,31 @@ export default {
   },
   setup() {
     let travelDeduction = ref("");
+    const workTravels = ref([{ km: "", times: "" }]);
     let workKm = ref();
     let workTimes = ref();
     let visitKm = ref();
     let visitTimes = ref();
     let request;
+    const variations = ref([{ km: "", times: "" }]);
+
+    const updateArray = (value, counter) => {
+      value.target.name.match("km")
+        ? (variations.value[counter].km = value.target.value)
+        : (variations.value[counter].times = value.target.value);
+      console.log(variations.value);
+    };
+
+    const addVariation = () => {
+      variations.value.push({
+        km: "",
+        times: "", // TODO Fetch the main price to make it more conventient to enter variations that doesn't impact the price
+      });
+    };
+
+    const removeVariation = (counter) => {
+      variations.value.splice(counter, 1);
+    };
 
     const getTravelInputs = () => {};
 
@@ -120,6 +146,10 @@ export default {
       visitKm,
       visitTimes,
       TravelInputs,
+      workTravels,
+      addVariation,
+      removeVariation,
+      updateArray,
       //   InputField,
     };
   },
