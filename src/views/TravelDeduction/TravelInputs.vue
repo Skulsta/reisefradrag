@@ -4,18 +4,19 @@
       v-for="(variation, counter) in variations"
       :key="counter"
       class="variations grid grid-cols-2 mb-8 space-x-4"
+      @change="(e) => updateArray(e, counter)"
     >
-      <input-field
-        label="Arbeidsreiser"
+      <input
         type="number"
         :name="`variations[${counter}].km`"
         placeholder="35"
+        class="border"
       />
-      <input-field
-        label="Besøksreiser"
+      <input
         :name="`variations[${counter}].times`"
         type="number"
         placeholder="5"
+        class="border"
       />
     </div>
     <div class="flex space-x-8">
@@ -34,12 +35,25 @@
 </template>
 <script>
 import { ref } from "vue";
-import InputField from "../../components/InputField.vue";
+// import InputField from "../../components/InputField.vue";
 
 export default {
-  components: { InputField },
+  //   components: { InputField },
   setup() {
-    const variations = ref(new Array());
+    const variations = ref([{ km: "", times: "" }]);
+
+    const updateArray = (value, counter) => {
+      //   console.log(value.target.value);
+      //   console.log("counter is: " + counter);
+      //   console.log(variations.value[0][0]);
+      //   console.log(variations.value[0]);
+      //   variations.value[counter].km = value.target.value;
+      value.target.name.match("km")
+        ? (variations.value[counter].km = value.target.value)
+        : (variations.value[counter].times = value.target.value);
+      //   variations.value[counter].times = value.target.name;
+      console.log(variations.value);
+    };
 
     const addVariation = () => {
       variations.value.push({
@@ -56,6 +70,7 @@ export default {
       variations,
       addVariation,
       removeVariation,
+      updateArray,
     };
   },
 };

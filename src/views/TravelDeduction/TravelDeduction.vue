@@ -43,7 +43,8 @@
             placeholder="5"
           />
         </div>
-        <!-- <travel-inputs /> -->
+        <p>Travel inputs component below</p>
+        <travel-inputs />
         <button>Submit</button>
       </form>
     </div>
@@ -52,10 +53,10 @@
 <script>
 import { ref } from "vue";
 // import InputField from "../../components/InputField.vue";
-// import TravelInputs from "./TravelInputs.vue";
+import TravelInputs from "./TravelInputs.vue";
 export default {
   components: {
-    // TravelInputs,
+    TravelInputs,
     // InputField,
   },
   setup() {
@@ -118,7 +119,7 @@ export default {
       workTimes,
       visitKm,
       visitTimes,
-      //   TravelInputs,
+      TravelInputs,
       //   InputField,
     };
   },
