@@ -2,11 +2,18 @@
   <div className="max-w-screen-2xl p-8">
     <div class="flex flex-col items-center space-y-4">
       <h1 class="text-2xl">Reisefradrag</h1>
-
       <p v-if="travelDeduction">Here you go: {{ travelDeduction }}</p>
-      <form action="submit" @submit.prevent="(e) => submit(e.target)">
-        <travel-inputs />
-        <input name="test" value="content" class="border" />
+
+      <form action="submit" @submit.prevent="(e) => submit(e)">
+        <div class="grid grid-cols-2 mb-8 space-x-4">
+          <input v-model="workKm" name="km" type="number" />
+          <input
+            v-model="workTimes"
+            name="times"
+            type="number"
+            placeholder="5"
+          />
+        </div>
         <button>Submit</button>
       </form>
     </div>
@@ -14,33 +21,30 @@
 </template>
 <script>
 import { ref } from "vue";
-import TravelInputs from "./TravelInputs.vue";
 export default {
-  components: { TravelInputs },
   setup() {
     let travelDeduction = ref("");
+    let workKm = ref(102);
+    let workTimes = ref(180);
+    let request;
 
-    const submit = (values) => {
-      const request = {
-        // access content from child
-        variations: values,
-        test: values.test.value,
+    const submit = () => {
+      request = {
+        arbeidsreiser: [
+          { km: parseInt(workKm.value), antall: workTimes.value },
+        ],
+        besoeksreiser: [{ km: 580, antall: 4 }],
+        utgifterBomFergeEtc: 4850,
       };
-      console.log(values.test.value, request);
+      console.log(request);
+      travelDeduction.value = calculateDeduction();
     };
 
     const calculateDeduction = () => {
       const requestOptions = {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          arbeidsreiser: [
-            { km: 91, antall: 180 },
-            { km: 378, antall: 4 },
-          ],
-          besoeksreiser: [{ km: 580, antall: 4 }],
-          utgifterBomFergeEtc: 4850,
-        }),
+        body: JSON.stringify(request),
       };
       fetch(
         "https://9f22opit6e.execute-api.us-east-2.amazonaws.com/default/reisefradrag",
@@ -63,9 +67,9 @@ export default {
     };
 
     // call on submit with values
-    travelDeduction.value = calculateDeduction();
+    // calculateDeduction();
 
-    return { travelDeduction, submit };
+    return { travelDeduction, submit, workKm, workTimes };
   },
 };
 </script>

@@ -6,14 +6,12 @@
       class="variations grid grid-cols-2 mb-8 space-x-4"
     >
       <input-field
-        v-model="event.workTravelsKm"
         label="Arbeidsreiser"
         type="number"
         :name="`variations[${counter}].km`"
         placeholder="35"
       />
       <input-field
-        v-model="event.workTravelTimes"
         label="Besøksreiser"
         :name="`variations[${counter}].times`"
         type="number"
@@ -41,20 +39,14 @@ import InputField from "../../components/InputField.vue";
 export default {
   components: { InputField },
   setup() {
-    const variations = ref([{ km: 91, antall: 180 }]);
-
-    const event = {
-      workTravelsKm: "",
-      workTravelTimes: "",
-    };
+    const variations = ref(new Array());
 
     const addVariation = () => {
       variations.value.push({
-        km: event.workTravelsKm,
-        times: event.workTravelTimes, // TODO Fetch the main price to make it more conventient to enter variations that doesn't impact the price
+        km: "",
+        times: "", // TODO Fetch the main price to make it more conventient to enter variations that doesn't impact the price
       });
       console.log(variations.value);
-      console.log(event);
     };
 
     const removeVariation = (counter) => {
@@ -65,7 +57,6 @@ export default {
       variations,
       addVariation,
       removeVariation,
-      event,
     };
   },
 };
