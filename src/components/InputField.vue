@@ -9,7 +9,7 @@
         :value="modelValue"
         :placeholder="placeholder"
         type="number"
-        class="block font-light w-full appearance-none focus:outline-none text-left"
+        class="block font-light w-full focus:outline-none text-left"
         @input="$emit('update:modelValue', $event.target.value)"
       />
       <span

@@ -1,9 +1,12 @@
 <template>
   <div className="max-w-screen-2xl p-8">
-    <div class="flex flex-col items-center space-y-4">
+    <div class="flex flex-col items-center space-y-4 text-center text-gray-800">
       <h1 class="text-2xl">Reisefradrag</h1>
-      <p v-if="travelDeduction">Here you go: {{ travelDeduction }}</p>
-
+      <input
+        :value="travelDeduction.toLocaleString('nb-NO')"
+        readOnly
+        class="w-46 mx-4 my-8 text-center border-b focus:outline-none "
+      />
       <form action="submit" @submit.prevent="submit">
         <multiple-inputs sectionLabel="Arbeidsreiser" @toParent="handler" />
         <multiple-inputs
@@ -11,14 +14,21 @@
           @toParent="handleAnother"
         />
         <!-- <input type="number" v-model="expenses" class="border" /> -->
-        <input-field
-          class="w-1/2"
-          type="number"
-          v-model="expenses"
-          metaText="kr"
-          placeholder="2 500"
-        />
-        <button>Submit</button>
+        <div class="text-left">
+          <label for="expenses">Utgifter</label>
+          <input-field
+            class="w-1/2"
+            type="number"
+            v-model="expenses"
+            metaText="kr"
+            placeholder="2 500"
+          />
+        </div>
+        <button
+          class="bg-green-500 focus:outline-none text-white hover:bg-green-600 py-2 w-1/2 my-4"
+        >
+          Submit
+        </button>
       </form>
     </div>
   </div>

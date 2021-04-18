@@ -1,5 +1,5 @@
 <template>
-  <div class="mb-8">
+  <div class="mb-8 text-left">
     <label>{{ sectionLabel }}</label>
     <div
       v-for="(variation, counter) in variations"
