@@ -11,7 +11,13 @@
           @toParent="handleAnother"
         />
         <!-- <input type="number" v-model="expenses" class="border" /> -->
-        <input-field type="number" v-model="expenses" />
+        <input-field
+          class="w-1/2"
+          type="number"
+          v-model="expenses"
+          metaText="kr"
+          placeholder="2 500"
+        />
         <button>Submit</button>
       </form>
     </div>

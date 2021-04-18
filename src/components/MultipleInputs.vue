@@ -1,23 +1,27 @@
 <template>
-  <div>
+  <div class="mb-8">
     <label>{{ sectionLabel }}</label>
     <div
       v-for="(variation, counter) in variations"
       :key="counter"
-      class="variations grid grid-cols-2 mb-8 space-x-4"
+      class="variations grid grid-cols-2 mb-4 space-x-4"
       @change="(e) => updateArray(e, counter)"
     >
-      <input
+      <input-field
+        id="km"
         type="number"
         :name="`variations[${counter}].km`"
         placeholder="35"
-        class="border"
+        v-model="km"
+        metaText="km"
       />
-      <input
+      <input-field
+        id="times"
         :name="`variations[${counter}].times`"
         type="number"
         placeholder="5"
-        class="border"
+        v-model="times"
+        metaText="antall"
       />
     </div>
     <div class="flex space-x-8">
@@ -36,18 +40,24 @@
 </template>
 <script>
 import { defineComponent, ref, toRaw } from "vue";
+import InputField from "./InputField.vue";
 
 export default defineComponent({
   props: {
     sectionLabel: { type: String, default: "" },
   },
+  components: {
+    InputField,
+  },
   setup() {
     const variations = ref([{ km: "", antall: "" }]);
+    const km = ref("");
+    const times = ref("");
 
     const updateArray = function(value, counter) {
-      value.target.name.match("km")
-        ? (variations.value[counter].km = parseInt(value.target.value))
-        : (variations.value[counter].antall = parseInt(value.target.value));
+      value.target.id === "km"
+        ? (variations.value[counter].km = parseInt(km.value))
+        : (variations.value[counter].antall = parseInt(times.value));
       this.$emit("toParent", toRaw(variations.value));
     };
 
@@ -68,6 +78,8 @@ export default defineComponent({
       addVariation,
       removeVariation,
       updateArray,
+      km,
+      times,
     };
   },
 });
