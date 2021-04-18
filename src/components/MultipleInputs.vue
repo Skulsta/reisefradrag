@@ -5,7 +5,7 @@
       v-for="(variation, counter) in variations"
       :key="counter"
       class="variations grid grid-cols-2 mb-4 space-x-4"
-      @change="(e) => updateArray(e, counter)"
+      @input="(e) => updateArray(e, counter)"
     >
       <input-field type="number" name="km" placeholder="35" metaText="km" />
       <input-field
@@ -49,6 +49,7 @@ export default defineComponent({
         ? (variations.value[counter].km = parseInt(result))
         : (variations.value[counter].antall = parseInt(result));
       this.$emit("toParent", toRaw(variations.value));
+      console.log(variations.value);
     };
 
     const addVariation = () => {
@@ -58,9 +59,11 @@ export default defineComponent({
       });
     };
 
-    const removeVariation = (counter) => {
+    const removeVariation = () => {
       // TODO This should update some value to resolve a bug
-      variations.value.splice(counter, 1);
+
+      variations.value.splice(variations.value.length - 1, 1);
+      console.log(variations.value);
     };
 
     return {
