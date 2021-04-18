@@ -21,7 +21,7 @@
       <div class="items-end mt-8 mb-4 text-gray-700">
         <h1 class=" text-2xl">Reisefradrag</h1>
         <p class="text-base">
-          Fyll ut feltene for å regne ut skattefradrag
+          Fyll ut feltene for å regne ut inntektsfradrag
         </p>
         <div class="h-4 text-red-600">
           <p v-show="request && travelDeduction === 0">
