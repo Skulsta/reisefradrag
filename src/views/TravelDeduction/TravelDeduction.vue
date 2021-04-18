@@ -5,9 +5,13 @@
       <p v-if="travelDeduction">Here you go: {{ travelDeduction }}</p>
 
       <form action="submit" @submit.prevent="submit">
-        <travel-inputs sectionLabel="Arbeidsreiser" @toParent="handler" />
-        <travel-inputs sectionLabel="Besøksreiser" @toParent="handleAnother" />
-        <input type="number" v-model="expenses" class="border" />
+        <multiple-inputs sectionLabel="Arbeidsreiser" @toParent="handler" />
+        <multiple-inputs
+          sectionLabel="Besøksreiser"
+          @toParent="handleAnother"
+        />
+        <!-- <input type="number" v-model="expenses" class="border" /> -->
+        <input-field type="number" v-model="expenses" />
         <button>Submit</button>
       </form>
     </div>
@@ -15,12 +19,12 @@
 </template>
 <script>
 import { ref } from "vue";
-// import InputField from "../../components/InputField.vue";
-import TravelInputs from "../../components/TravelInputs.vue";
+import MultipleInputs from "../../components/MultipleInputs.vue";
+import InputField from "../../components/InputField.vue";
 export default {
   components: {
-    TravelInputs,
-    // InputField,
+    MultipleInputs,
+    InputField,
   },
   setup() {
     let travelDeduction = ref("");
@@ -82,7 +86,7 @@ export default {
       workTimes,
       visitKm,
       visitTimes,
-      TravelInputs,
+      MultipleInputs,
       workTravels,
       handler,
       visitTravels,

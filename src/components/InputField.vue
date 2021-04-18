@@ -1,23 +1,25 @@
 <template>
-  <div class="flex flex-col">
-    <label>{{ label }}</label>
-    <input
-      type="number"
-      v-bind="$attrs"
-      :value="value"
-      class="border"
-      @input="$emit('update:model-value', $event.target.value)"
-    />
-  </div>
+  <input
+    :value="modelValue"
+    type="number"
+    class="border"
+    @input="$emit('update:modelValue', $event.target.value)"
+  />
 </template>
 <script>
 export default {
   props: {
-    name: { type: String, default: "" },
-    label: { type: String, default: "" },
-    value: { type: String, default: "" },
     modelValue: { type: [String, Number], default: "" },
   },
-  emits: ["update:model-value"],
 };
 </script>
+
+<style scoped>
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button,
+input[type="number"] {
+  -webkit-appearance: none;
+  -moz-appearance: textfield;
+  margin: 0;
+}
+</style>
