@@ -1,19 +1,32 @@
 <template>
-  <div className="max-w-screen-2xl p-8 font-light mx-auto">
-    <div class="flex flex-col items-center space-y-8 text-center text-gray-800">
-      <div class="h-2">
-        <p v-show="request && travelDeduction === 0">
-          Beløpet gir dessverre ikke rett på fradrag 😥
+  <div className="max-w-screen-2xl px-8 py-12 font-light">
+    <div class="flex flex-col items-center text-center text-gray-800">
+      <img
+        :class="travelDeduction > 0 && 'animate-bounce'"
+        src="../../assets/images/travel-image-3.png"
+        alt="Travel"
+      />
+      <div
+        v-show="travelDeduction > 0"
+        class="font-medium text-xl pl-20 -mt-12 text-green-600"
+      >
+        <p class="text-sm text-right text-gray-600 font-light">
+          Fradrag:
         </p>
+        {{
+          travelDeduction && Math.trunc(travelDeduction).toLocaleString("nb-NO")
+        }}
+        kr
       </div>
-      <div class="flex text-xl space-x-2 text-gray-800 border-b">
-        <h1>Reisefradrag:</h1>
-        <div class="font-medium text-green-600">
-          {{
-            travelDeduction &&
-              Math.trunc(travelDeduction).toLocaleString("nb-NO")
-          }}
-          kr
+      <div class="items-end mt-8 mb-4 text-gray-700">
+        <h1 class=" text-2xl">Reisefradrag</h1>
+        <p class="text-base">
+          Fyll ut feltene for regne ut skattefradrag
+        </p>
+        <div class="h-2">
+          <p v-show="request && travelDeduction === 0">
+            Beløpet gir ikke rett på fradrag 😥
+          </p>
         </div>
       </div>
       <form action="submit" @submit.prevent="submit">
