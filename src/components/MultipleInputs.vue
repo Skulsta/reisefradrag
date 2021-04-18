@@ -2,9 +2,9 @@
   <div class="mb-8 text-left">
     <label class="text-xl">{{ sectionLabel }}</label>
     <div
-      v-for="(variation, counter) in variations"
+      v-for="(variation, counter) in travels"
       :key="counter"
-      class="variations grid grid-cols-2 my-4 space-x-4"
+      class="grid grid-cols-2 my-4 space-x-4"
       @input="(e) => updateArray(e, counter)"
     >
       <input-field type="number" name="km" placeholder="35" metaText="km" />
@@ -23,7 +23,7 @@
         Legg til flere
       </div>
       <div
-        v-show="variations.length > 1"
+        v-show="travels.length > 1"
         class="text-red-600 hover:text-red-400 cursor-pointer"
         @click="removeVariation"
       >
@@ -44,30 +44,30 @@ export default defineComponent({
     InputField,
   },
   setup() {
-    const variations = ref([{ km: "", antall: "" }]);
+    const travels = ref([{ km: "", antall: "" }]);
 
     const updateArray = function(value, counter) {
       const result = value.target.value;
       value.target.name === "km"
-        ? (variations.value[counter].km = parseInt(result))
-        : (variations.value[counter].antall = parseInt(result));
-      this.$emit("toParent", toRaw(variations.value));
-      console.log(variations.value);
+        ? (travels.value[counter].km = parseInt(result))
+        : (travels.value[counter].antall = parseInt(result));
+      this.$emit("toParent", toRaw(travels.value));
+      console.log(travels.value);
     };
 
     const addVariation = () => {
-      variations.value.push({
+      travels.value.push({
         km: "",
         antall: "",
       });
     };
 
     const removeVariation = () => {
-      variations.value.splice(variations.value.length - 1, 1);
+      travels.value.splice(travels.value.length - 1, 1);
     };
 
     return {
-      variations,
+      travels,
       addVariation,
       removeVariation,
       updateArray,

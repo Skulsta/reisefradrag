@@ -1,6 +1,11 @@
 <template>
   <div className="max-w-screen-2xl p-8 font-light mx-auto">
-    <div class="flex flex-col items-center space-y-4 text-center text-gray-800">
+    <div class="flex flex-col items-center space-y-8 text-center text-gray-800">
+      <div class="h-2">
+        <p v-show="request && travelDeduction === 0">
+          Beløpet gir dessverre ikke rett på fradrag 😥
+        </p>
+      </div>
       <div class="flex text-xl space-x-2 text-gray-800 border-b">
         <h1>Reisefradrag:</h1>
         <div class="font-medium text-green-600">
@@ -52,20 +57,21 @@ export default {
     let workTimes = ref();
     let visitKm = ref();
     let visitTimes = ref();
-    let request;
+    let request = ref();
     let visitTravels;
     let expenses = ref("");
 
     const handler = (value) => {
       workTravels = value;
     };
+    console.log(request);
 
     const handleAnother = (value) => {
       visitTravels = value;
     };
 
     const submit = () => {
-      request = {
+      request.value = {
         arbeidsreiser: workTravels ? workTravels : [{ km: 0, antall: 0 }],
         besoeksreiser: visitTravels ? visitTravels : [{ km: 0, antall: 0 }],
         utgifterBomFergeEtc: parseInt(expenses.value),
@@ -77,7 +83,7 @@ export default {
       const requestOptions = {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(request),
+        body: JSON.stringify(request.value),
       };
       fetch(
         "https://9f22opit6e.execute-api.us-east-2.amazonaws.com/default/reisefradrag",
@@ -111,6 +117,7 @@ export default {
       visitTravels,
       handleAnother,
       expenses,
+      request,
     };
   },
 };
