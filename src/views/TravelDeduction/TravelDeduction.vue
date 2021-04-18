@@ -3,7 +3,7 @@
     <div class="flex flex-col items-center space-y-4 text-center text-gray-800">
       <h1 class="text-2xl">Reisefradrag</h1>
       <input
-        :value="travelDeduction.toLocaleString('nb-NO')"
+        :value="travelDeduction && travelDeduction.toLocaleString('nb-NO')"
         readOnly
         class="w-46 mx-4 my-8 text-center border-b focus:outline-none "
       />
@@ -13,7 +13,6 @@
           sectionLabel="Besøksreiser"
           @toParent="handleAnother"
         />
-        <!-- <input type="number" v-model="expenses" class="border" /> -->
         <div class="text-left">
           <label for="expenses">Utgifter</label>
           <input-field
@@ -25,9 +24,9 @@
           />
         </div>
         <button
-          class="bg-green-500 focus:outline-none text-white hover:bg-green-600 py-2 w-1/2 my-4"
+          class="bg-green-500 focus:outline-none text-white hover:bg-green-600 py-2 w-1/2 my-8"
         >
-          Submit
+          Fullfør
         </button>
       </form>
     </div>

@@ -7,20 +7,11 @@
       class="variations grid grid-cols-2 mb-4 space-x-4"
       @change="(e) => updateArray(e, counter)"
     >
+      <input-field type="number" name="km" placeholder="35" metaText="km" />
       <input-field
-        id="km"
-        type="number"
-        :name="`variations[${counter}].km`"
-        placeholder="35"
-        v-model="km"
-        metaText="km"
-      />
-      <input-field
-        id="times"
-        :name="`variations[${counter}].times`"
+        name="times"
         type="number"
         placeholder="5"
-        v-model="times"
         metaText="antall"
       />
     </div>
@@ -33,7 +24,7 @@
         class="text-red-600 cursor-pointer opacity-75"
         @click="removeVariation"
       >
-        Fjern siste felt
+        Fjern felt
       </div>
     </div>
   </div>
@@ -51,13 +42,12 @@ export default defineComponent({
   },
   setup() {
     const variations = ref([{ km: "", antall: "" }]);
-    const km = ref("");
-    const times = ref("");
 
     const updateArray = function(value, counter) {
-      value.target.id === "km"
-        ? (variations.value[counter].km = parseInt(km.value))
-        : (variations.value[counter].antall = parseInt(times.value));
+      const result = value.target.value;
+      value.target.name === "km"
+        ? (variations.value[counter].km = parseInt(result))
+        : (variations.value[counter].antall = parseInt(result));
       this.$emit("toParent", toRaw(variations.value));
     };
 
@@ -78,8 +68,6 @@ export default defineComponent({
       addVariation,
       removeVariation,
       updateArray,
-      km,
-      times,
     };
   },
 });
