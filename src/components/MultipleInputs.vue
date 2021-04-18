@@ -2,7 +2,7 @@
   <div class="mb-8 text-left">
     <label class="text-xl">{{ sectionLabel }}</label>
     <div
-      v-for="(variation, counter) in travels"
+      v-for="(travel, counter) in travels"
       :key="counter"
       class="grid grid-cols-2 my-4 space-x-4"
       @input="(e) => updateArray(e, counter)"
@@ -51,8 +51,7 @@ export default defineComponent({
       value.target.name === "km"
         ? (travels.value[counter].km = parseInt(result))
         : (travels.value[counter].antall = parseInt(result));
-      this.$emit("toParent", toRaw(travels.value));
-      console.log(travels.value);
+      this.$emit("updateTravels", toRaw(travels.value));
     };
 
     const addVariation = () => {

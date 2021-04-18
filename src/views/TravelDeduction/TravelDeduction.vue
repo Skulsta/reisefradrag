@@ -17,10 +17,13 @@
         </div>
       </div>
       <form action="submit" @submit.prevent="submit">
-        <multiple-inputs sectionLabel="Arbeidsreiser" @toParent="handler" />
+        <multiple-inputs
+          sectionLabel="Arbeidsreiser"
+          @updateTravels="getWorkTravels"
+        />
         <multiple-inputs
           sectionLabel="Besøksreiser"
-          @toParent="handleAnother"
+          @updateTravels="getVisitTravels"
         />
         <div class="text-left">
           <label for="expenses">Utgifter</label>
@@ -57,12 +60,11 @@ export default {
     let request = ref();
     let expenses = ref("");
 
-    const handler = (value) => {
+    const getWorkTravels = (value) => {
       workTravels = value;
     };
-    console.log(request);
 
-    const handleAnother = (value) => {
+    const getVisitTravels = (value) => {
       visitTravels = value;
     };
 
@@ -105,9 +107,9 @@ export default {
       submit,
       MultipleInputs,
       workTravels,
-      handler,
+      getWorkTravels,
       visitTravels,
-      handleAnother,
+      getVisitTravels,
       expenses,
       request,
     };
