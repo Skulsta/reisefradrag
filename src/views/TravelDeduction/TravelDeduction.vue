@@ -53,12 +53,8 @@ export default {
   setup() {
     let travelDeduction = ref("0");
     let workTravels;
-    let workKm = ref();
-    let workTimes = ref();
-    let visitKm = ref();
-    let visitTimes = ref();
-    let request = ref();
     let visitTravels;
+    let request = ref();
     let expenses = ref("");
 
     const handler = (value) => {
@@ -107,10 +103,6 @@ export default {
     return {
       travelDeduction,
       submit,
-      workKm,
-      workTimes,
-      visitKm,
-      visitTimes,
       MultipleInputs,
       workTravels,
       handler,
