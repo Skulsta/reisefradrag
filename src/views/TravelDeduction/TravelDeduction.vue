@@ -1,12 +1,16 @@
 <template>
-  <div className="max-w-screen-2xl p-8">
+  <div className="max-w-screen-2xl p-8 font-light mx-auto">
     <div class="flex flex-col items-center space-y-4 text-center text-gray-800">
-      <h1 class="text-2xl">Reisefradrag</h1>
-      <input
-        :value="travelDeduction && travelDeduction.toLocaleString('nb-NO')"
-        readOnly
-        class="w-46 mx-4 my-8 text-center border-b focus:outline-none "
-      />
+      <div class="flex text-xl space-x-2 text-gray-800 border-b">
+        <h1>Reisefradrag:</h1>
+        <div class="font-medium text-green-600">
+          {{
+            travelDeduction &&
+              Math.trunc(travelDeduction).toLocaleString("nb-NO")
+          }}
+          kr
+        </div>
+      </div>
       <form action="submit" @submit.prevent="submit">
         <multiple-inputs sectionLabel="Arbeidsreiser" @toParent="handler" />
         <multiple-inputs
@@ -24,7 +28,7 @@
           />
         </div>
         <button
-          class="bg-green-500 focus:outline-none text-white hover:bg-green-600 py-2 w-1/2 my-8"
+          class="bg-green-500 text-lg border-2 hover:text-green-500 border-green-500 focus:outline-none text-white hover:bg-white py-2 w-full sm:w-2/3 my-12"
         >
           Fullfør
         </button>
@@ -42,7 +46,7 @@ export default {
     InputField,
   },
   setup() {
-    let travelDeduction = ref("");
+    let travelDeduction = ref("0");
     let workTravels;
     let workKm = ref();
     let workTimes = ref();

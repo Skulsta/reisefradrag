@@ -6,7 +6,7 @@
       <input
         :name="name"
         :id="id"
-        :value="modelValue"
+        :value="modelValue || value"
         :placeholder="placeholder"
         type="number"
         class="block font-light w-full focus:outline-none text-left"
@@ -30,6 +30,7 @@ export default {
     name: { type: String, default: "" },
     id: { type: String, default: "" },
     modelValue: { type: [String, Number], default: "" },
+    value: { type: [String, Number], default: "" },
     placeholder: { type: [String, Number], default: "" },
     metaText: { type: String, default: "" },
   },

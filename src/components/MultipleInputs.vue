@@ -1,10 +1,10 @@
 <template>
   <div class="mb-8 text-left">
-    <label>{{ sectionLabel }}</label>
+    <label class="text-xl">{{ sectionLabel }}</label>
     <div
       v-for="(variation, counter) in variations"
       :key="counter"
-      class="variations grid grid-cols-2 mb-4 space-x-4"
+      class="variations grid grid-cols-2 my-4 space-x-4"
       @input="(e) => updateArray(e, counter)"
     >
       <input-field type="number" name="km" placeholder="35" metaText="km" />
@@ -16,12 +16,15 @@
       />
     </div>
     <div class="flex space-x-8">
-      <div class="text-green-600 cursor-pointer" @click="addVariation">
+      <div
+        class="text-green-600 hover:text-green-500 cursor-pointer"
+        @click="addVariation"
+      >
         Legg til flere
       </div>
       <div
         v-show="variations.length > 1"
-        class="text-red-600 cursor-pointer opacity-75"
+        class="text-red-600 hover:text-red-400 cursor-pointer"
         @click="removeVariation"
       >
         Fjern felt
@@ -60,10 +63,7 @@ export default defineComponent({
     };
 
     const removeVariation = () => {
-      // TODO This should update some value to resolve a bug
-
       variations.value.splice(variations.value.length - 1, 1);
-      console.log(variations.value);
     };
 
     return {
