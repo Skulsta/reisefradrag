@@ -64,7 +64,7 @@
           </div>
         </div>
         <button
-          class="bg-green-500 text-lg border-2 hover:text-green-500 border-green-500 focus:outline-none text-white hover:bg-white py-2 w-full sm:w-2/3 my-6"
+          class="bg-green-500 text-lg border-2 hover:text-green-500 border-green-500 focus:outline-none text-white hover:bg-white py-2 w-full sm:w-2/3 my-8"
         >
           Fullfør
         </button>
